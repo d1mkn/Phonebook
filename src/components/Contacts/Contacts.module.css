@@ -1,0 +1,17 @@
+.ListWrap {
+  height: 150px;
+  overflow-y: scroll;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  padding-inline-start: 0px;
+  gap: 10px;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+}
