@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export class Filter extends Component {
-  setFilterValue = e => {
+export const Filter = ({ onChange }) => {
+  const setFilterValue = e => {
     let value = e.currentTarget.value;
-    this.props.onChange(value);
+    onChange(value);
   };
 
-  render() {
-    return (
-      <div>
-        <h3>Find contacts by name</h3>
-        <input onChange={this.setFilterValue}></input>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <h3>Find contacts by name</h3>
+      <input onChange={setFilterValue}></input>
+    </div>
+  );
+};
 
 Filter.propTypes = {
   onChange: PropTypes.func.isRequired,
