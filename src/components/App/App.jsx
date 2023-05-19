@@ -26,7 +26,7 @@ export const App = () => {
 
     contacts.find(person => person.name === contact.name)
       ? alert(`${contact.name} is already in contacts`)
-      : setContact([contact, ...contacts]);
+      : setContact(prevContacts => [contact, ...prevContacts]);
   };
 
   const changeFilter = value => {
