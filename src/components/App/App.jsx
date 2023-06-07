@@ -1,21 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { Section } from 'components/Section/Section';
 import { ContactForm } from 'components/ContactForm/ContactForm';
 import { Filter } from 'components/Filter/Filter';
 import { Contacts } from 'components/Contacts/Contacts';
+import { addContact, deleteContact, getContacts } from 'redux/contactsSlice';
+import { addFilter, getFilterValue } from 'redux/filterSlice';
 
 export const App = () => {
-  const [contacts, setContact] = useState(() => {
-    return JSON.parse(localStorage.getItem('contacts')) ?? [];
-  });
-  const [filter, setFilter] = useState('');
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilterValue);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
-
-  const addContact = values => {
+  const checkContact = values => {
     const id = nanoid();
     const { name, number } = values;
     const contact = {
@@ -26,11 +23,11 @@ export const App = () => {
 
     contacts.find(person => person.name === contact.name)
       ? alert(`${contact.name} is already in contacts`)
-      : setContact(prevContacts => [contact, ...prevContacts]);
+      : dispatch(addContact(contact));
   };
 
   const changeFilter = value => {
-    setFilter(value);
+    dispatch(addFilter(value));
   };
 
   const filteredContacts = () => {
@@ -39,17 +36,13 @@ export const App = () => {
     );
   };
 
-  const deleteContact = contactId => {
-    setContact(contacts.filter(contact => contact.id !== contactId));
-  };
-
   return (
     <Section title="Phonebook">
-      <ContactForm onSubmit={addContact} />
+      <ContactForm onSubmit={checkContact} />
       <Contacts
         title="Contacts"
         contacts={filteredContacts()}
-        onDeleteContact={deleteContact}
+        onDeleteContact={contactId => dispatch(deleteContact(contactId))}
         children={<Filter onChange={changeFilter} value={filter} />}
       />
     </Section>
