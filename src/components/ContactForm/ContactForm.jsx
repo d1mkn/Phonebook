@@ -3,8 +3,7 @@ import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { validationSchema } from 'validationSchema/validationSchema';
-import { getContacts } from 'redux/contactsSlice';
-import { addContact } from 'redux/contactsSlice';
+import { addContact, getContacts } from 'redux/contactsSlice';
 import css from './ContactForm.module.css';
 
 export const ContactForm = () => {
