@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import css from './Contacts.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from 'redux/contactsSlice';
-import { getFilter } from 'redux/filterSlice';
-import { deleteContact } from 'redux/contactsSlice';
+import { selectContacts, selectFilter } from 'redux/selectors';
+import { fetchContacts, deleteContact } from 'redux/operations';
+import { Loader } from 'components/Loader/Loader';
+import css from './Contacts.module.css';
 
 export const Contacts = ({ children, title }) => {
-  const items = useSelector(getContacts);
-  const filter = useSelector(getFilter);
+  const { items, isLoading, error } = useSelector(selectContacts);
+  const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   const filteredContacts = () => {
     return items.filter(contact =>
@@ -22,11 +26,13 @@ export const Contacts = ({ children, title }) => {
       <h2>{title}</h2>
       {children}
       <div className={css.ListWrap}>
+        {isLoading && <Loader />}
+        {error !== null && error}
         <ul>
-          {filteredContacts().map(({ id, name, number }) => {
+          {filteredContacts().map(({ id, name, phone }) => {
             return (
               <li id={id} key={id}>
-                {name}: {number}
+                {name}: {phone}
                 <button onClick={() => dispatch(deleteContact(id))}>
                   Delete
                 </button>

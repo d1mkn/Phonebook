@@ -1,4 +1,5 @@
 .ListWrap {
+  position: relative;
   height: 150px;
   overflow-y: scroll;
 }

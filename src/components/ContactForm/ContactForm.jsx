@@ -1,25 +1,23 @@
 import React from 'react';
-import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { validationSchema } from 'validationSchema/validationSchema';
-import { addContact, getContacts } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
+import { selectContacts } from 'redux/selectors';
 import css from './ContactForm.module.css';
 
 export const ContactForm = () => {
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const checkContact = values => {
-    const id = nanoid();
-    const { name, number } = values;
+    const { name, phone } = values;
     const contact = {
-      id,
       name,
-      number,
+      phone,
     };
 
-    contacts.find(person => person.name === contact.name)
+    contacts.items.find(person => person.name === contact.name)
       ? alert(`${contact.name} is already in contacts`)
       : dispatch(addContact(contact));
   };
