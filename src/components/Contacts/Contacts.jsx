@@ -1,19 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectContacts, selectFilter } from 'redux/selectors';
-import { fetchContacts, deleteContact } from 'redux/operations';
 import { Loader } from 'components/Loader/Loader';
+import { ListItem } from 'components/ListItem/ListItem';
 import css from './Contacts.module.css';
 
 export const Contacts = ({ children, title }) => {
   const { items, isLoading, error } = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
 
   const filteredContacts = () => {
     return items.filter(contact =>
@@ -30,14 +25,7 @@ export const Contacts = ({ children, title }) => {
         {error !== null && error}
         <ul>
           {filteredContacts().map(({ id, name, phone }) => {
-            return (
-              <li id={id} key={id}>
-                {name}: {phone}
-                <button onClick={() => dispatch(deleteContact(id))}>
-                  Delete
-                </button>
-              </li>
-            );
+            return <ListItem key={id} id={id} name={name} phone={phone} />;
           })}
         </ul>
       </div>
