@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from 'redux/operations';
-import { selectContacts } from 'redux/selectors';
+import { selectIsLoading } from 'redux/selectors';
 
 export const ListItem = ({ id, name, phone }) => {
   const dispatch = useDispatch();
-  const { isLoading } = useSelector(selectContacts);
+  const isLoading = useSelector(selectIsLoading);
 
   return (
     <li>

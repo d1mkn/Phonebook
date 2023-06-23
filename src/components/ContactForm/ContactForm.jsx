@@ -17,7 +17,7 @@ export const ContactForm = () => {
       phone,
     };
 
-    contacts.items.find(person => person.name === contact.name)
+    contacts.find(person => person.name === contact.name)
       ? alert(`${contact.name} is already in contacts`)
       : dispatch(addContact(contact));
   };
