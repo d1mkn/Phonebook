@@ -1,18 +1,32 @@
 .ListWrap {
   position: relative;
-  height: 150px;
-  overflow-y: scroll;
+  height: 300px;
+  overflow: auto;
 }
 
-ul {
-  display: flex;
-  flex-direction: column;
-  width: 350px;
-  padding-inline-start: 0px;
-  gap: 10px;
+/* Стили для полосы прокрутки */
+.ListWrap::-webkit-scrollbar {
+  width: 5px;
+  background-color: #f5f5f5;
 }
 
-li {
-  display: flex;
-  justify-content: space-between;
+/* Стили для ползунка прокрутки */
+.ListWrap::-webkit-scrollbar-thumb {
+  background-color: var(--bs-border-color);
+  border-radius: 6px;
+}
+
+/* Стили для ползунка прокрутки при наведении */
+.ListWrap::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* Стили для трека прокрутки */
+.ListWrap::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}
+
+/* Стили для трека прокрутки при наведении */
+.ListWrap::-webkit-scrollbar-track:hover {
+  background-color: #ccc;
 }

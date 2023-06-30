@@ -1,4 +1,6 @@
 @import-normalize;
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'react-toastify/dist/ReactToastify.css';
 
 body {
   margin: 0;
@@ -7,13 +9,74 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  justify-content: center;
   height: 100vh;
-  align-items: center;
+  overflow-y: hidden;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  padding-inline-start: 0px;
+  gap: 10px;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#root {
+  height: 100%;
+}
+
+#navContainer {
+  max-width: 100%;
+  padding: 0;
+}
+
+.navbar {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.dropdown-menu[data-bs-popper] {
+  top: 36px;
+}
+
+.page-content {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  height: 100vh;
+}
+
+.contacts-title {
+  display: inline-block;
+}
+
+.contacts-content {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+}
+
+@media screen and (min-width: 992px) {
+  .contacts-content {
+    flex-direction: row;
+  }
+}
+
+.contacts-form {
+  width: 400px;
+}
+
+.form-control {
+  width: 400px;
 }

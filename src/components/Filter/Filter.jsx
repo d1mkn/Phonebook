@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { Form } from 'react-bootstrap';
 import { addFilter } from 'redux/filterSlice';
 
 export const Filter = () => {
@@ -11,9 +12,12 @@ export const Filter = () => {
   };
 
   return (
-    <div>
-      <h3>Find contacts by name</h3>
-      <input onChange={changeFilter}></input>
-    </div>
+    <Form>
+      <Form.Group className="mb-3">
+        <h2>Find contacts by name</h2>
+        <Form.Label />
+        <Form.Control as={'input'} onChange={changeFilter}></Form.Control>
+      </Form.Group>
+    </Form>
   );
 };

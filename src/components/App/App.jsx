@@ -1,22 +1,56 @@
-import { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { useEffect, lazy } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchContacts } from 'redux/operations';
-import { Section } from 'components/Section/Section';
-import { ContactForm } from 'components/ContactForm/ContactForm';
-import { Filter } from 'components/Filter/Filter';
-import { Contacts } from 'components/Contacts/Contacts';
+import { refreshUser } from 'redux/auth/authOperations';
+import { RestrictedRoute } from '../RestrictedRoute';
+import { PrivateRoute } from '../PrivateRoute';
+import { Layout } from 'components/Layout/Layout';
+import { useAuth } from 'hooks';
+
+const HomePage = lazy(() => import('../../pages/Home'));
+const RegisterPage = lazy(() => import('../../pages/Register'));
+const LoginPage = lazy(() => import('../../pages/Login'));
+const ContactsPage = lazy(() => import('../../pages/ContactsPage'));
 
 export const App = () => {
   const dispatch = useDispatch();
+  const { isRefreshing } = useAuth();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
   return (
-    <Section title="Phonebook">
-      <ContactForm />
-      <Contacts title="Contacts" children={<Filter />} />
-    </Section>
+    !isRefreshing && (
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute
+                redirectTo="/contacts"
+                component={<LoginPage />}
+              />
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute
+                redirectTo="/contacts"
+                component={<RegisterPage />}
+              />
+            }
+          />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
+            }
+          />
+        </Route>
+      </Routes>
+    )
   );
 };

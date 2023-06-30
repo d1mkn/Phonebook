@@ -1,20 +1,20 @@
 import React from 'react';
+import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Field, ErrorMessage } from 'formik';
 import { validationSchema } from 'validationSchema/validationSchema';
 import { addContact } from 'redux/operations';
 import { selectContacts } from 'redux/selectors';
-import css from './ContactForm.module.css';
 
 export const ContactForm = () => {
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const checkContact = values => {
-    const { name, phone } = values;
+    const { name, number } = values;
     const contact = {
       name,
-      phone,
+      number,
     };
 
     contacts.find(person => person.name === contact.name)
@@ -31,21 +31,31 @@ export const ContactForm = () => {
         resetForm();
       }}
     >
-      {({ values }) => (
-        <Form action="submit" className={css.contactForm} autoComplete="off">
-          <label htmlFor="name">
-            Name
-            <Field type="text" name="name" as="input" value={values.name} />
-            <ErrorMessage name="name" />
-          </label>
+      {({ values, handleSubmit }) => (
+        <Form autoComplete="off" onSubmit={handleSubmit}>
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="name">Name</Form.Label>
+            <Field
+              as={Form.Control}
+              type="text"
+              name="name"
+              value={values.name}
+            />
+            <ErrorMessage name="name" component={Form.Text} />
+          </Form.Group>
 
-          <label htmlFor="number">
-            Number
-            <Field type="tel" name="number" as="input" value={values.number} />
-            <ErrorMessage name="number" />
-          </label>
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="number">Number</Form.Label>
+            <Field
+              as={Form.Control}
+              type="tel"
+              name="number"
+              value={values.number}
+            />
+            <ErrorMessage name="number" component={Form.Text} />
+          </Form.Group>
 
-          <button type="submit">Add contact</button>
+          <Button type="submit">Add contact</Button>
         </Form>
       )}
     </Formik>
