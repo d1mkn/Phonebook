@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/415.aeb3fb07.chunk.js","mappings":"uMAAe,SAASA,IACtB,OACEC,EAAAA,EAAAA,KAAA,OAAAC,UACED,EAAAA,EAAAA,KAAA,MAAAC,SAAI,4BAGV,C","sources":["pages/Home.jsx"],"sourcesContent":["export default function Home() {\n  return (\n    <div>\n      <h2>Phonebook welcome page</h2>\n    </div>\n  );\n}\n"],"names":["Home","_jsx","children"],"sourceRoot":""}
