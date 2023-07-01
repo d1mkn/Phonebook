@@ -45,6 +45,12 @@ li {
   padding-right: 15px;
 }
 
+.navbar-nav {
+  gap: 10px;
+  flex-direction: row;
+  margin-left: 20px;
+}
+
 .dropdown-menu[data-bs-popper] {
   top: 36px;
 }
