@@ -79,8 +79,10 @@ li {
   }
 }
 
-.contacts-form {
-  width: 400px;
+.contacts-form,
+.contacts-list {
+  max-width: 400px;
+  width: 100%
 }
 
 .form-control {
